@@ -1,70 +1,42 @@
-# Getting Started with Create React App
+# CatFacts App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Description
+CatFacts is a fun, interactive React application that displays random cat facts and images every 10 seconds. It's perfect for cat lovers and anyone who enjoys learning interesting trivia about our feline friends.
 
-## Available Scripts
+## Features
+- Displays a new cat fact and image every 10 seconds
+- Countdown timer showing time until the next fact
+- Pause/Continue button to control the automatic updates
+- Responsive design for various screen sizes
 
-In the project directory, you can run:
+## Technologies Used
+- React
+- JavaScript (ES6+)
+- CSS3
+- Fetch API
+- Cat Facts API (https://catfact.ninja/)
+- The Cat API (https://thecatapi.com/)
 
-### `npm start`
+## Installation
+To run this project locally:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+1. Clone the repository
+   git clone https://github.com/neelayr/catfacts-app.git
+2. Navigate to the project directory
+   cd catfacts-app
+3. Install dependencies
+   npm install
+4. Start the development server
+   npm start
+5. Open http://localhost:3000 to view it in the browser
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Usage
+- The app will automatically load a new cat fact and image every 10 seconds
+- Use the "PAUSE" button to stop automatic updates
+- Click "CONTINUE" to resume automatic updates
+- Enjoy learning about cats!
 
-### `npm test`
+## License
+This project is [MIT](https://choosealicense.com/licenses/mit/) licensed.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Project Link: [https://github.com/neelayr/catfacts-app](https://github.com/neelayr/catfacts-app)
