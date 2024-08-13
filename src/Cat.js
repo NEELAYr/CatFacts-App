@@ -1,98 +1,72 @@
-import { Component } from "react";
-import "./cat.css"
+import React, { useState, useEffect, useCallback } from "react";
+import "./cat.css";
 
-class Cat extends Component {
+const Cat = () => {
+  const [catFact, setCatFact] = useState("");
+  const [catImageURL, setCatImageURL] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [pause, setPause] = useState(false);
+  const [timer, setTimer] = useState(10);
 
-  constructor() {
-    super();
-    this.state = {
-        catFact: "",
-        catImageURL: "",
-        loading: true,
-        pause: false,
-        timer: 10
-    }
-    this.intervalId = null;
-  }
+  const fetchCatFact = useCallback(() => {
+    return fetch("https://catfact.ninja/fact/")
+      .then(response => response.json())
+      .then(data => setCatFact(data.fact));
+  }, []);
 
-  fetchCatFact = () => {
-    fetch("https://catfact.ninja/fact/")
-    .then(response => response.json())
-    .then(data => this.setState({catFact: data.fact, loading: false}));
-  }
-
-   fetchCatImage = () => {
-    fetch("https://api.thecatapi.com/v1/images/search")
+  const fetchCatImage = useCallback(() => {
+    return fetch("https://api.thecatapi.com/v1/images/search")
       .then((response) => response.json())
-      .then((data) => {this.setState({ catImageURL: data[0].url })
-      });
-    };
+      .then((data) => setCatImageURL(data[0].url));
+  }, []);
 
-   fetchCatData = () => {
-        this.setState({ loading: true, timer: 10 });
-        Promise.all([this.fetchCatFact(), this.fetchCatImage()]).then(() => {
-            this.setState({loading: false});
-        });
-    };
+  const fetchCatData = useCallback(() => {
+    setLoading(true);
+    setTimer(10);
+    Promise.all([fetchCatFact(), fetchCatImage()]).then(() => {
+      setLoading(false);
+    });
+  }, [fetchCatFact, fetchCatImage]);
 
-    componentDidMount() {
-        this.fetchCatData();
-        this.intervalId = setInterval(() => {
-            this.setState((prevState) => ({
-                timer: prevState.timer > 0 ? prevState.timer - 1 : 10
-            }), () => {
-                if (this.state.timer === 10) {
-                    this.fetchCatData();
-                }
-            })
-        }, 1000);
-    }
+  useEffect(() => {
+    fetchCatData();
+  }, [fetchCatData]);
 
-    componentWillUnmount() {
-        if (this.intervalId) clearInterval(this.intervalId);
-    }
-
-    handlePauseButton = () => {
-        this.setState(prevState => ({ pause: !prevState.pause }), () => {
-          if (this.state.pause) {
-            clearInterval(this.intervalId);
-          } else {
-            this.intervalId = setInterval(() => {
-              this.setState(prevState => ({
-                timer: prevState.timer > 0 ? prevState.timer - 1 : 10
-              }), () => {
-                if (this.state.timer === 10) {
-                  this.fetchCatData();
-                }
-              });
-            }, 1000);
+  useEffect(() => {
+    let intervalId;
+    if (!pause) {
+      intervalId = setInterval(() => {
+        setTimer((prevTimer) => {
+          if (prevTimer === 1) {
+            fetchCatData();
+            return 10;
           }
+          return prevTimer - 1;
         });
-      }
-
-  render() {
-    console.log(this.state.catFact, this.state.catImageURL)
-
-    if (this.state.loading) {
-        return (
-            <p>Loading a cute cat and a cat fact......</p> 
-        );
+      }, 1000);
     }
+    return () => clearInterval(intervalId);
+  }, [pause, fetchCatData]);
 
-    return (
-      <>
-        <div className="cat-container">
-            <h3>Get a random cat fact every 10 seconds!</h3>
-            <div className="timer">Next fact in: {this.state.timer}s</div>
-            <div>
-                <img src={this.state.catImageURL} alt="Cat" />
-                <p>{this.state.catFact}</p>
-                <button onClick={this.handlePauseButton}>{this.state.pause ? "CONTINUE" : "PAUSE"}</button>
-            </div>
-        </div>
-      </>
-    );
-  } 
-}
+  const handlePauseButton = () => {
+    setPause((prevPause) => !prevPause);
+  };
+
+  if (loading) {
+    return <p>Loading a cute cat and a cat fact......</p>;
+  }
+
+  return (
+    <div className="cat-container">
+      <h3>Get a random cat fact every 10 seconds!</h3>
+      <div className="timer">Next fact in: {timer}s</div>
+      <div>
+        <img src={catImageURL} alt="Cat" />
+        <p>{catFact}</p>
+        <button onClick={handlePauseButton}>{pause ? "CONTINUE" : "PAUSE"}</button>
+      </div>
+    </div>
+  );
+};
 
 export default Cat;
