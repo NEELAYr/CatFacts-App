@@ -6,7 +6,7 @@ const Cat = () => {
   const [catImageURL, setCatImageURL] = useState("");
   const [loading, setLoading] = useState(true);
   const [pause, setPause] = useState(false);
-  const [timer, setTimer] = useState(5);
+  const [timer, setTimer] = useState(15);
 
   const fetchCatFact = useCallback(() => {
     return fetch("https://catfact.ninja/fact/")
@@ -22,7 +22,7 @@ const Cat = () => {
 
   const fetchCatData = useCallback(() => {
     setLoading(true);
-    setTimer(5);
+    setTimer(15);
     Promise.all([fetchCatFact(), fetchCatImage()]).then(() => {
       setLoading(false);
     });
@@ -39,7 +39,7 @@ const Cat = () => {
         setTimer((prevTimer) => {
           if (prevTimer === 1) {
             fetchCatData();
-            return 5;
+            return 15;
           }
           return prevTimer - 1;
         });
