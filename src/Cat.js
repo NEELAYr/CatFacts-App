@@ -23,6 +23,7 @@ const Cat = () => {
   const fetchCatData = useCallback(() => {
     setLoading(true);
     setTimer(15);
+
     Promise.all([fetchCatFact(), fetchCatImage()]).then(() => {
       setLoading(false);
     });
@@ -40,6 +41,7 @@ const Cat = () => {
           if (prevTimer === 1) {
             fetchCatData();
             return 15;
+
           }
           return prevTimer - 1;
         });
@@ -58,7 +60,7 @@ const Cat = () => {
 
   return (
     <div className="cat-container">
-      <h3>Get a random cat fact every 10 seconds!</h3>
+      <h3>Get a random cat fact every 5 seconds!</h3>
       <div className="timer">Next fact in: {timer}s</div>
       <div>
         <img src={catImageURL} alt="Cat" />
