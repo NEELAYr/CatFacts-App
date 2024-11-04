@@ -6,7 +6,7 @@ const Cat = () => {
   const [catImageURL, setCatImageURL] = useState("");
   const [loading, setLoading] = useState(true);
   const [pause, setPause] = useState(false);
-  const [timer, setTimer] = useState(10);
+  const [timer, setTimer] = useState(5);
 
   const fetchCatFact = useCallback(() => {
     return fetch("https://catfact.ninja/fact/")
@@ -22,7 +22,7 @@ const Cat = () => {
 
   const fetchCatData = useCallback(() => {
     setLoading(true);
-    setTimer(10);
+    setTimer(5);
     Promise.all([fetchCatFact(), fetchCatImage()]).then(() => {
       setLoading(false);
     });
@@ -39,7 +39,7 @@ const Cat = () => {
         setTimer((prevTimer) => {
           if (prevTimer === 1) {
             fetchCatData();
-            return 10;
+            return 5;
           }
           return prevTimer - 1;
         });
@@ -58,7 +58,7 @@ const Cat = () => {
 
   return (
     <div className="cat-container">
-      <h3>Get a random cat fact every 10 seconds!</h3>
+      <h3>Get a random cat fact every 5 seconds!</h3>
       <div className="timer">Next fact in: {timer}s</div>
       <div>
         <img src={catImageURL} alt="Cat" />
